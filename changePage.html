@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <!-- <meta name="viewport" content="width=640, user-scalable=no"> -->
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <!-- <meta name="apple-mobile-web-app-title" content=""> -->
+    <title>H5-test</title>
+    <link href="change.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="page_box" id="videoScroll">
+        <div class="page page1">
+            <div>
+                <div>111111111111111111</div>
+                <div>111111111111111111</div>
+                <div>111111111111111111</div>
+                <div>111111111111111111</div>
+                <div>111111111111111111</div>
+                <div>111111111111111111</div>
+            </div>
+        </div>
+        <div class="page page2 hide">
+            <div>
+                <div>222222222222222222</div>
+                <div>222222222222222222</div>
+                <div>222222222222222222</div>
+                <div>222222222222222222</div>
+                <div>222222222222222222</div>
+                <div>222222222222222222</div>
+                <div>222222222222222222</div>
+            </div>
+        </div>
+        <div class="page page3 hide">
+            <div>
+                <div>333333333333333333</div>
+                <div>333333333333333333</div>
+                <div>333333333333333333</div>
+                <div>333333333333333333</div>
+                <div>333333333333333333</div>
+                <div>333333333333333333</div>
+                <div>333333333333333333</div>
+            </div>
+        </div>
+        <div class="page page4 hide">
+            <div>
+                <div>4444444444444444444</div>
+                <div>4444444444444444444</div>
+                <div>4444444444444444444</div>
+                <div>4444444444444444444</div>
+                <div>4444444444444444444</div>
+                <div>4444444444444444444</div>
+                <div>4444444444444444444</div>
+                <div>4444444444444444444</div>
+            </div>
+        </div>
+    </div>
+    <div class="arrow">∧</div>
+
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+        document.getElementById('videoScroll').addEventListener('DOMMouseScroll',function(e) {
+            e.preventDefault();
+        }, false);
+
+        var curPage = 1;
+        var PageL = $('.page_box .page').length;
+        var canTouch = false;
+        canTouch = true;
+
+        var startY, endY, diff;
+        // document.getElementById('videoScroll').addEventListener('DOMMouseScroll', scrollFunc, false);
+        function scrollFunc(e) {
+            // console.log(curPage,'curPage');
+            //上滑
+            if(e.wheelDelta > 0) {
+                if(curPage <= 1) {
+                    return;
+                }
+                $('.page' + curPage).removeClass('inTop outTop inDown outDown hide').addClass('outDown');
+                curPage--;
+                $('.page' + curPage).removeClass('inTop outTop inDown outDown hide').addClass('inDown');
+            } else {
+                if(curPage >= PageL){
+                    return;
+                }
+                $('.page' + curPage).removeClass('inTop outTop inDown outDown hide').addClass('outTop');
+                curPage++;
+                $('.page' + curPage).removeClass('inTop outTop inDown outDown hide').addClass('inTop');
+
+                if(curPage >= PageL){
+                    $('.arrow').hide();
+                }else{
+                    $('.arrow').show();
+                }
+            }
+            canTouch = false;
+            // 1s后切换页面
+            // setTimeout(function(){
+            //     canTouch = true;
+            //     diff = 0;
+            //     $('.page' + (curPage - 1) + ', .page' + (curPage + 1)).addClass('hide');
+            // },1000);
+        }
+        window.onmousewheel = document.onmousewheel = scrollFunc;
+    </script>
+</body>
+</html>
